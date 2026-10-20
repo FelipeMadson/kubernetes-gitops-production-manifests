@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Kubernetes Manifests
+        uses: instrumenta/kubeval-action@master
+        with:
+          files: 'base/'
+          strict: true
+          ignore_missing_schemas: true
